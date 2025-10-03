@@ -1,0 +1,332 @@
+<!-- 
+  Difyチャットボットをウェブサイトに組み込むためのモックページ
+  Dify起動用コードは「Dify起動用カスタムボタン」以下
+-->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>こもれび本舗 | ガーデニング用品の専門店</title>
+  <meta name="description" content="こもれび本舗は、庭しごとをもっと楽しく。道具・苗・資材まで、はじめてさんにも優しいガーデニング専門店のモックサイトです。" />
+  <meta name="theme-color" content="#0e7c7b" />
+  <meta property="og:title" content="こもれび本舗 | ガーデニング用品の専門店" />
+  <meta property="og:description" content="庭しごとをもっと楽しく。道具・苗・資材まで、はじめてさんにも優しいガーデニング専門店。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://example.com/" />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=1200&auto=format&fit=crop" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%230e7c7b'/%3E%3Cpath d='M50 18c12 9 18 22 18 34 0 12-6 21-18 30-12-9-18-18-18-30 0-12 6-25 18-34z' fill='%23fff'/%3E%3C/svg%3E" />
+  <style>
+    :root{
+      --bg: #f7faf8; 
+      --fg: #102a27; 
+      --muted: #557571; 
+      --brand: #0e7c7b; 
+      --brand-2: #6ad3c2; 
+      --accent: #f0fff8; 
+      --card: #ffffff; 
+      --ring: rgba(14,124,123,.35);
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body{
+      margin:0; font-family: system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Noto Sans JP", "Hiragino Kaku Gothic ProN","Yu Gothic UI",sans-serif;
+      color: var(--fg); background: var(--bg); line-height: 1.6;
+    }
+    a{ color: var(--brand); text-decoration: none; }
+    a:hover{ text-decoration: underline; }
+    .container{ width: min(1200px, 92%); margin: 0 auto; }
+    header{
+      position: sticky; top: 0; z-index: 40; backdrop-filter: saturate(1.2) blur(8px);
+      background: color-mix(in oklab, var(--bg) 70%, rgba(255,255,255,.6));
+      border-bottom: 1px solid rgba(16,42,39,.06);
+    }
+    .nav{ display:flex; align-items:center; justify-content:space-between; padding: 12px 0; }
+    .logo{ display:flex; align-items:center; gap:10px; font-weight: 800; letter-spacing: .02em; }
+    .logo-badge{ width:36px; height:36px; border-radius: 10px; display:grid; place-items:center; background: radial-gradient(100% 100% at 50% 0%, var(--brand) 0%, #095b5a 100%); color:#fff; font-weight:900; }
+    .nav ul{ display:flex; gap: 20px; list-style:none; padding:0; margin:0; }
+    .btn{ display:inline-grid; place-items:center; padding: 10px 16px; border-radius: 12px; border:1px solid rgba(16,42,39,.12); background: var(--card); box-shadow: 0 1px 0 rgba(0,0,0,.04);
+      transition: transform .06s ease, box-shadow .2s ease, background .2s ease; }
+    .btn:hover{ transform: translateY(-1px); box-shadow: 0 8px 20px rgba(0,0,0,.06); text-decoration:none; }
+    .btn.primary{ background: linear-gradient(180deg, var(--brand) 0%, #0b6b6a 100%); color:#fff; border: none; }
+
+    /* Hero */
+    .hero{ position:relative; overflow:hidden; background: conic-gradient(from 180deg at 50% 50%, #e9fff8, #f7faf8 30%, #e7f7f2 60%, #e9fff8); }
+    .hero-inner{ display:grid; grid-template-columns: 1.1fr .9fr; gap: 32px; align-items:center; padding: 48px 0; }
+    .hero h1{ font-size: clamp(28px, 4vw, 48px); line-height: 1.2; margin: 0 0 12px; }
+    .hero p{ font-size: clamp(14px, 2.2vw, 18px); color: var(--muted); margin: 0 0 20px; }
+    .hero-cta{ display:flex; gap:12px; flex-wrap: wrap; }
+    .hero-art{ position: relative; aspect-ratio: 4/3; border-radius: 20px; background: linear-gradient(135deg, #bff6ec, #f7fff8); border:1px solid rgba(14,124,123,.18); box-shadow: 0 12px 40px rgba(14,124,123,.18) inset, 0 8px 24px rgba(0,0,0,.05);
+      display:grid; place-items:center; }
+    .leaf{ width: 70%; max-width: 420px; }
+
+    /* Sections */
+    section{ padding: 48px 0; }
+    .section-title{ font-size: clamp(20px, 2.6vw, 28px); margin: 0 0 20px; }
+    .muted{ color: var(--muted); }
+
+    /* Feature grid */
+    .features{ display:grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .card{ background: var(--card); border:1px solid rgba(16,42,39,.08); border-radius: 16px; padding: 18px; box-shadow: 0 2px 0 rgba(0,0,0,.02); }
+    .card h3{ margin: 8px 0 6px; font-size: 16px; }
+
+    /* Product grid */
+    .grid{ display:grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .product{ display:flex; flex-direction:column; gap:10px; }
+    .product .img{ aspect-ratio: 4/3; border-radius: 14px; overflow:hidden; border:1px solid rgba(16,42,39,.12); background:#f2fbf7; display:grid; place-items:center; }
+    .price{ font-weight: 700; }
+
+    /* Newsletter */
+    .newsletter{ background: linear-gradient(180deg, #e9fff8, #f7faf8); border:1px solid rgba(16,42,39,.08); border-radius: 18px; padding: 20px; display:grid; grid-template-columns: 1.2fr .8fr; gap: 16px; align-items:center; }
+    .newsletter form{ display:flex; gap:8px; }
+    .input{ flex:1; padding: 12px 14px; border-radius: 12px; border:1px solid rgba(16,42,39,.18); outline: none; box-shadow: 0 0 0 0 var(--ring);
+      transition: box-shadow .15s ease; }
+    .input:focus{ box-shadow: 0 0 0 4px var(--ring); }
+
+    /* Footer */
+    footer{ margin-top: 24px; padding: 24px 0 40px; border-top: 1px solid rgba(16,42,39,.08); color: #335955; font-size: 14px; }
+    .footer-grid{ display:grid; grid-template-columns: 1.2fr .8fr; gap: 14px; }
+
+    /* Responsive */
+    @media (max-width: 920px){
+      .hero-inner{ grid-template-columns: 1fr; }
+      .newsletter{ grid-template-columns: 1fr; }
+      .features{ grid-template-columns: repeat(2, 1fr); }
+      .grid{ grid-template-columns: repeat(2, 1fr); }
+      .footer-grid{ grid-template-columns: 1fr; }
+    }
+    @media (max-width: 560px){
+      .nav ul{ display:none; }
+      .features{ grid-template-columns: 1fr; }
+      .grid{ grid-template-columns: 1fr; }
+    }
+
+    /* Difyが自動生成するデフォルトのチャットボタンを非表示にする */
+    #dify-chatbot-bubble-button { opacity: 0 !important; pointer-events: auto !important; }
+
+    #dify-chat-window {
+      display: none; 
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      width: 350px;
+      height: 500px;
+      border: 1px solid #e0e0e0;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+      z-index: 9999;
+    }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Store",
+    "name": "こもれび本舗",
+    "image": "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=1200&auto=format&fit=crop",
+    "description": "ガーデニング用品の専門店",
+    "address": {"@type":"PostalAddress", "addressCountry":"JP"},
+    "url": "https://example.com",
+    "sameAs": ["https://x.com/"],
+    "openingHours": "Mo-Su 10:00-19:00"
+  }
+  </script>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="logo" aria-label="こもれび本舗">
+        <div class="logo-badge" aria-hidden="true">木</div>
+        <span>こもれび本舗</span>
+      </div>
+      <ul>
+        <li><a class="btn" href="#categories">カテゴリ</a></li>
+        <li><a class="btn" href="#products">おすすめ</a></li>
+        <li><a class="btn" href="#news">お知らせ</a></li>
+        <li><a class="btn" href="#access">アクセス</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container hero-inner">
+        <div>
+          <h1>庭しごとを、やさしく楽しく。<br/>こもれび本舗</h1>
+          <p>はじめての苗選びから、道具のメンテまで。スタッフの知見と厳選アイテムで、あなたの庭時間を心地よくサポートします。</p>
+          <div class="hero-cta">
+            <a class="btn primary" href="#products">人気アイテムを見る</a>
+            <a class="btn" href="#chat">スタッフに相談</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Products -->
+    <section id="products" class="container">
+      <h2 class="section-title">おすすめアイテム</h2>
+      <div class="grid">
+        <!-- 6 sample product cards -->
+        <article class="card product">
+          <div class="img"><img alt="剪定ばさみ" loading="lazy" src="https://images.unsplash.com/photo-1611224885990-6a10d26a6f8b?q=80&w=800&auto=format&fit=crop" style="width:100%;height:100%;object-fit:cover"/></div>
+          <h3>剪定ばさみ（カーボンスチール）</h3>
+          <div class="muted">軽い力でスパッと切れる定番モデル</div>
+          <div class="price">¥2,480</div>
+          <div>
+            <a class="btn" href="#">詳細</a>
+            <a class="btn primary" href="#">取り置き</a>
+          </div>
+        </article>
+        <article class="card product">
+          <div class="img"><img alt="じょうろ" loading="lazy" src="https://images.unsplash.com/photo-1595274657487-c3b9d2d7641a?q=80&w=800&auto=format&fit=crop" style="width:100%;height:100%;object-fit:cover"/></div>
+          <h3>ブリキじょうろ 4L</h3>
+          <div class="muted">注ぎやすいロングノズル</div>
+          <div class="price">¥1,980</div>
+          <div>
+            <a class="btn" href="#">詳細</a>
+            <a class="btn primary" href="#">取り置き</a>
+          </div>
+        </article>
+        <article class="card product">
+          <div class="img"><img alt="ガーデングローブ" loading="lazy" src="https://images.unsplash.com/photo-1597007063580-7e2e3dc48d6d?q=80&w=800&auto=format&fit=crop" style="width:100%;height:100%;object-fit:cover"/></div>
+          <h3>ガーデングローブ（撥水）</h3>
+          <div class="muted">手に馴染むフィット感</div>
+          <div class="price">¥890</div>
+          <div>
+            <a class="btn" href="#">詳細</a>
+            <a class="btn primary" href="#">取り置き</a>
+          </div>
+        </article>
+        <article class="card product">
+          <div class="img"><img alt="プランター" loading="lazy" src="" style="width:100%;height:100%;object-fit:cover"/></div>
+          <h3>軽量プランター 30cm</h3>
+          <div class="muted">ベランダにも置きやすい軽さ</div>
+          <div class="price">¥1,280</div>
+          <div>
+            <a class="btn" href="#">詳細</a>
+            <a class="btn primary" href="#">取り置き</a>
+          </div>
+        </article>
+        <article class="card product">
+          <div class="img"><img alt="土" loading="lazy" src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?q=80&w=800&auto=format&fit=crop" style="width:100%;height:100%;object-fit:cover"/></div>
+          <h3>培養土 14L</h3>
+          <div class="muted">元肥入り・そのまま使える万能土</div>
+          <div class="price">¥698</div>
+          <div>
+            <a class="btn" href="#">詳細</a>
+            <a class="btn primary" href="#">取り置き</a>
+          </div>
+        </article>
+        <article class="card product">
+          <div class="img"><img alt="肥料" loading="lazy" src="https://images.unsplash.com/photo-1560785496-3c9f5986f9a6?q=80&w=800&auto=format&fit=crop" style="width:100%;height:100%;object-fit:cover"/></div>
+          <h3>有機肥料 ペレット 1kg</h3>
+          <div class="muted">におい控えめ、ゆっくり効く</div>
+          <div class="price">¥760</div>
+          <div>
+            <a class="btn" href="#">詳細</a>
+            <a class="btn primary" href="#">取り置き</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- News / Announcement -->
+    <section id="news" class="container">
+      <h2 class="section-title">お知らせ</h2>
+      <div class="card" role="region" aria-label="お知らせ">
+        <ul style="margin:0; padding-left: 18px;">
+          <li>10/2 - 秋の苗フェア開催中。対象苗が 10% OFF。</li>
+          <li>9/28 - 取り置きサービスをはじめました。</li>
+          <li>9/20 - はじめての剪定ワークショップ、予約受付中。</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="container">
+      <div class="newsletter">
+        <div>
+          <h2 class="section-title">メールマガジン</h2>
+          <p class="muted">季節の育て方・セール情報を配信します。いつでも解除できます。</p>
+        </div>
+        <form onsubmit="event.preventDefault(); alert('ご登録ありがとうございます！');">
+          <input class="input" type="email" required placeholder="メールアドレス" aria-label="メールアドレス" />
+          <button class="btn primary" type="submit">登録</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Access -->
+    <section id="access" class="container">
+      <h2 class="section-title">アクセス</h2>
+      <div class="card">
+        <p class="muted">〒000-0000 東京都〇〇区〇〇 1-2-3（サンプル）/ 10:00 - 19:00 / 水曜定休</p>
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
+          <iframe title="地図（ダミー）" style="width:100%;aspect-ratio:4/3;border:0;border-radius:12px" loading="lazy" src="https://maps.google.com/maps?q=shinjuku&t=&z=13&ie=UTF8&iwloc=&output=embed"></iframe>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <div class="logo" style="margin-bottom:8px">
+          <div class="logo-badge">木</div>
+          <strong>こもれび本舗</strong>
+        </div>
+        <div class="muted">© <span id="y"></span> Komorebi Honpo. All rights reserved.</div>
+      </div>
+      <div style="justify-self:end; display:flex; gap:10px; align-items:center;">
+        <a class="btn" href="#">利用規約</a>
+        <a class="btn" href="#">プライバシー</a>
+        <a class="btn" href="#">X</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Dify起動用カスタムボタン -->
+  <button aria-label="在庫を確認する" id="chat-fab" class="btn primary" style="position: fixed; right: 16px; bottom: 16px; border-radius: 999px; padding: 14px 18px; box-shadow: 0 10px 30px rgba(14,124,123,.35);">在庫を確認する</button>
+  
+  <!-- 1. Difyチャットウィンドウ本体 (iframe) -->
+  <iframe
+    id="dify-chat-window"
+    src="https://udify.app/chat/vS1u90AoZIrT8W5X"
+    allow="microphone"
+  ></iframe>
+
+  <!-- 2. ボタンとiframeを連携させるスクリプト -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const customButton = document.getElementById('chat-fab');
+      const chatWindow = document.getElementById('dify-chat-window');
+
+      if (customButton && chatWindow) {
+        customButton.addEventListener('click', () => {
+          const isVisible = chatWindow.style.display === 'block';
+          
+          if (isVisible) {
+            chatWindow.style.display = 'none';
+            customButton.style.display = 'block';
+          } else {
+            chatWindow.style.display = 'block';
+            customButton.style.display = 'none';
+          }
+        });
+
+        document.addEventListener('click', (event) => {
+          if (!customButton.contains(event.target) && !chatWindow.contains(event.target)) {
+            if (chatWindow.style.display === 'block') {
+               chatWindow.style.display = 'none';
+               customButton.style.display = 'block';
+            }
+          }
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>
